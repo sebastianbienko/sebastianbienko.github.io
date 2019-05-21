@@ -8,10 +8,10 @@ tags: [Cypress.io, Sitecore, testautomation]
 comments: true
 ---
 
-After having stuck with [Selenium](https://selenium.com) as the only option for running automated UI-Tests for a couple of years now, there are finally arrising some alternatives at the horizon. Most knowingly [Cypress.io](https://cypress.io/) and [TestCafé Studio](https://www.devexpress.com/products/testcafestudio/). Both solutions share some common features, but also have some notable differences. For a good side-to-side comparison I recommend you to read this blog post: [https://xebia.com/blog/cypress-and-testcafe-a-comparison-part-one/](https://xebia.com/blog/cypress-and-testcafe-a-comparison-part-one/)
+After having stuck with [Selenium](https://www.seleniumhq.org) as the only option for running automated UI-Tests for a couple of years now, there are finally arrising some alternatives at the horizon. Most knowingly [Cypress.io](https://cypress.io/) and [TestCafé Studio](https://www.devexpress.com/products/testcafestudio/). Both solutions share some common features, but also have some notable differences. For a good Side-by-Side comparison I recommend you to read this blog post: [https://xebia.com/blog/cypress-and-testcafe-a-comparison-part-one/](https://xebia.com/blog/cypress-and-testcafe-a-comparison-part-one/)
 
 At Deloitte Digital we have given Cypress a shot. There has also already been an implementation, which has Cypress tests automatically run after a Sitecore publish by [Dave Leigh](https://github.com/daveaftershok). Check it out here: [https://github.com/daveaftershok/sitecore-test-run-on-publish](https://github.com/daveaftershok/sitecore-test-run-on-publish)\\
-We figured, that it would be nice to know, if a feature will break, before publish the changes. Also we wanted to get to know Cypress a little bit more in depth and see how flexible it actually is. So we took the "Sitecore Test Run On Publish" implementation of Dave as basis for a PoC, in which we wanted to acheive:
+We figured, that it would be nice to know, if a feature will break, before publishing the changes. Also we wanted to get to know Cypress a little bit more in depth and see how flexible it actually is. So we took the "Sitecore Test Run On Publish" implementation of Dave as basis for a PoC, in which we wanted to acheive:
 
 1. Being able to selectively run Cypress tests against the "Live" and "Preview" site.
 2. Being able to run Cypress tests for individual pages and test only the actual page's renderings.
@@ -98,7 +98,7 @@ This is fairly easy, because Cypress natively allows you to configure it by a co
 
 ### Running relevant tests only
 
-On the side of the node.js webserver the query parameters are being formated a little bit, before they are passed to Cypress. I will not get into this one. The following JS functions are used to check, if a test is relevant for the current run:
+On the side of the node.js webserver the query parameters are being formated a little bit, before they are passed to Cypress (I won't get into this one). The following JS functions are used to check, if a test is relevant for the current run:
 
 {% highlight javascript linenos %}
 function containsRendering(pageRendering, allowedRendering){
@@ -134,7 +134,7 @@ function replaceWhiteSpaces(value){
 }
 {% endhighlight %}
 
-What basically happens is, that we read the *pageRendering* from the Cypress settings and we compare them to a given parameter (*allowedRenderings*), which is an array of rendering names and datasources. It's fairly simple and even more easily explained by just giving an example.
+Basically the *pageRendering* are read from the Cypress settings and we compare them to a given parameter *allowedRenderings*, which is an array of rendering names and datasources. It is fairly simple and even more easily explained by just giving an example.
 
 We can define our relevant renderings at a central location:
 ```javascript
@@ -168,7 +168,7 @@ There are probably more elegant ways to implement this, but it works just fine f
 
 ### Making the test results available in the Sitecore backend
 
-I will keep this one very short: Before, the results had to be viewed outside of Sitecore on a different site. Now, this external site is being "integrated" with by an Iframe.
+I will keep this one very short: Before, the results had to be viewed outside of Sitecore on a different site. Now, this external site is being "integrated" by an Iframe.
 
 ![Cypress-TestResults-In-Sitecore](/assets/Cypress-TestResults-In-Sitecore.png)
 
@@ -176,7 +176,7 @@ The JS library [*mochawesome*](https://www.npmjs.com/package/mochawesome) is bei
 
 ## Happy Testing!
 
-I haven't said much about Cypress itself, but there already is enough information about it out there to get you started. My take on it: *Cypress makes testing almost actually fun.* ;)
+I haven't said much about Cypress itself, there already is enough information about it out there to get you started. My take on it: *Cypress makes testing almost actually fun.* ;)
 
 Take a peak at my implementation on GitHub:
 
