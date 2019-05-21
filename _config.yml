@@ -23,13 +23,12 @@ description: Blogging about C#, Sitecore and everything that comes to mind
 
 # List of links in the navigation bar
 navbar-links:
-  About Me: "aboutme"
   Resources:
     - Cypress For Sitecore: "https://github.com/sebastianbienko/CypressForSitecore"
 
 # Image to show in the navigation bar - image must be a square (width = height)
 # Remove this parameter if you don't want an image in the navbar
-avatar: "/img/avatar-icon.png"
+avatar: "/img/profile.jpg"
 
 # If you want to have an image logo in the top-left corner instead of the title text,
 # then specify the following parameter
