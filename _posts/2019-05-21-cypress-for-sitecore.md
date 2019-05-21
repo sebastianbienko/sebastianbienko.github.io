@@ -34,7 +34,7 @@ A test run can be triggered by calling a specific endpoint ('/run'). Since we wa
 
 ### Passing rendering and page information to Cypress
 
-First, I added some buttons to the *Review* Chunk of the Ribbon:
+First, I added some buttons to the *Review* Strip of the Ribbon:
 
 ![ButtonsInRibbon](/assets/Buttons-In-Ribbon.png)
 
