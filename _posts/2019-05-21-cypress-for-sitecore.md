@@ -26,9 +26,9 @@ In the following I will outline, how we did this. If you haven't heard about Cyp
 My starting point has been the implementation by Dave Leigh, which consists of two parts:
 
 1. A Sitecore Module, which triggers the test runs and makes the tests results accessible from Sitecore. [GitHub Repo](https://github.com/daveaftershok/sitecore-test-run-on-publish)
-2. A node.js webserver, which provides a simple Web-API to communicate with Cypress. [GitHub Repo](https://github.com/daveaftershok/cypress-node-api-windows)
+2. A node.js web-server, which provides a simple Web-API to communicate with Cypress. [GitHub Repo](https://github.com/daveaftershok/cypress-node-api-windows)
 
-A test run can be triggered by calling a specific endpoint ('/run'). Since we want Cypress to know which renderings and which page to test, we need to **pass additional parameters to the endpoint**, like the page url or the rendering IDs. Because Cypress does not know Sitecore or renderings we need to **implement some logic, which makes it possible to differenciate between different test cases by rendering definitions**. Last but not least, there was no **integration of results in the Sitecore backend**, yet. So far the results were accesible on an external page, provided by the node.js webserver.
+A test run can be triggered by calling a specific endpoint ('/run'). Since we want Cypress to know which renderings and which page to test, we need to **pass additional parameters to the endpoint**, like the page url or the rendering IDs. Because Cypress does not know Sitecore or renderings we need to **implement some logic, which makes it possible to differentiate between different test cases by rendering definitions**. Last but not least, there was no **integration of results in the Sitecore back-end**, yet. So far the results were accessible on an external page, provided by the node.js web-server.
 
 ## Implementation
 
@@ -46,7 +46,7 @@ Once we have all the renderings of the page item, we can extract the relevant in
 * Rendering Name (could as well have used the ID)
 * Datasource (if any)
 
-The first two information about the Helix layer and module might make it more performant to filter among large numbers on test files, later on. (Cypress gives you full flexibility in using any folder structure)\\
+The first two information about the Helix layer and module might help with performance, when filtering among large numbers on test files, later on. (Cypress gives you full flexibility in using any folder structure)\\
 The rendering name or ID is needed to match the relevant test cases to the specific rendering.\\
 The datasource can be used to specify the rendering even further. I am for example having the *Forms* rendering in mind, which might be used in very different cases and varies a lot, depending on the datasource used.
 
@@ -69,7 +69,7 @@ The result is being parsed to JSON and might look like this:
 ]
 ```
 
-For simplicty I decided to pass the renderings as query parameter. Also, since I was already passing arguments to Cypress, I decided to have Sitecore "control" Cypress, by also passing Cypress settings as parameters.\\
+For simplicity I decided to pass the renderings as query parameter. Also, since I was already passing arguments to Cypress, I decided to have Sitecore "control" Cypress, by also passing Cypress settings as parameters.\\
 This is fairly easy, because Cypress natively allows you to configure it by a configuration file, by passing command line arguments or by environment variables (Read more about it [here](https://docs.cypress.io/guides/references/configuration.html#Overriding-Options)). I have added a Sitecore configuration, where Cypress settings can be added. They will just be passed alongside the rendering informations as query parameter.
 
 ```xml
@@ -98,7 +98,7 @@ This is fairly easy, because Cypress natively allows you to configure it by a co
 
 ### Running relevant tests only
 
-On the side of the node.js webserver the query parameters are being formated a little bit, before they are passed to Cypress (I won't get into this one). The following JS functions are used to check, if a test is relevant for the current run:
+On the side of the node.js web-server the query parameters are being formated a little bit, before they are passed to Cypress (I won't get into this one). The following JS functions are used to check, if a test is relevant for the current run:
 
 {% highlight javascript linenos %}
 function containsRendering(pageRendering, allowedRendering){
@@ -166,7 +166,7 @@ describe("Carousel Rendering", function() {
 
 There are probably more elegant ways to implement this, but it works just fine for this PoC. If there is a *datasource* defined for a rendering, then it will have to match the datasource passed by Sitecore as well as the name of the rendering.
 
-### Making the test results available in the Sitecore backend
+### Making the test results available in the Sitecore back-end
 
 I will keep this one very short: Before, the results had to be viewed outside of Sitecore on a different site. Now, this external site is being "integrated" by an Iframe.
 
