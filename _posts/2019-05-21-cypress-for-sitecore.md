@@ -14,7 +14,7 @@ At Deloitte Digital we have given Cypress a shot. There has also already been an
 We figured, that it would be nice to know, if a feature will break, before publishing the changes. Also we wanted to get to know Cypress a little bit more in depth and see how flexible it actually is. So we took the "Sitecore Test Run On Publish" implementation of Dave as basis for a PoC, in which we wanted to acheive:
 
 1. Being able to selectively run Cypress tests against the "Live" and "Preview" site.
-2. Being able to run Cypress tests for individual pages and test only the actual page's renderings.
+2. Being able to run Cypress tests for individual pages and test only the page's actual renderings.
 3. Have the visualization of the test result integrated in the Sitecore backend.
 
 In the following I will outline, how we did this. If you haven't heard about Cypress before, I recommend you to check it out on [Cypress.io](https://cypress.io/) first (They also have a great documentation!) Let's go!
