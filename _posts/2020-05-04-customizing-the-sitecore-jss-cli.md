@@ -60,7 +60,7 @@ In case you opened a JSS solution before you will notice that the 'data' and 'si
 
 ### Scaffolding
 
-Adapting the scaffolding is very straight forward. Because the JSS CLI uses [Angular schematics](https://angular.io/guide/schematics) internally we can simply use the templates and modify them according to our needs. The templates can be found here in the respective 'component-files' or 'manifest-files' folder: https://github.com/Sitecore/jss/tree/dev/packages/sitecore-jss-angular-schematics/src/jss-component
+Adapting the scaffolding is very straight forward. Because the JSS CLI uses [Angular schematics](https://angular.io/guide/schematics) internally, we can simply use the templates and modify them according to our needs. The templates can be found here in the respective 'component-files' or 'manifest-files' folder: [https://github.com/Sitecore/jss/tree/dev/packages/sitecore-jss-angular-schematics/src/jss-component](https://github.com/Sitecore/jss/tree/dev/packages/sitecore-jss-angular-schematics/src/jss-component)
 
 Simply take the templates and place them in the desired folder structure inside your schematic.
 
@@ -126,7 +126,7 @@ function createFiles (options: any, templatesPath: string): Rule{
             "label": "our-jss-app",
             "value": {
               "appId": "our-jss-app",
-              "selector": "ofja"
+              "selector": "oja"
             }
           }
         ]
@@ -137,15 +137,15 @@ function createFiles (options: any, templatesPath: string): Rule{
 }
 ```
 
-Of course you can also allow additional parameters to enable scaffolding for different variation like done in the [original JSS scaffolding script](https://github.com/Sitecore/jss/blob/dev/packages/sitecore-jss-angular-schematics/src/jss-component/index.ts), but since we now have full control about the generation there is not much need for it.
+Of course you can allow additional parameters like done in the [original JSS scaffolding script](https://github.com/Sitecore/jss/blob/dev/packages/sitecore-jss-angular-schematics/src/jss-component/index.ts), but since we now have full control about the generation there is not much need for it.
 
-Be aware that for the above to work you will have to modify the templates slightly because they would usually expect additional parameters to be passed.
+Be aware, for the above to work you will have to modify the templates slightly because they would usually expect additional parameters to be passed.
 
 ### Manifest generation
 
-For the manifest generation to work we will once again turn to the JSS GitHub project where the manifest.ts script can be found: https://github.com/Sitecore/jss/blob/dev/packages/sitecore-jss-cli/src/scripts/manifest.ts We simply copy the file to the scripts folder of our app, where we can start to modify it. 
+For the manifest generation to work we will once again turn to the JSS GitHub project where the manifest.ts script can be found: [https://github.com/Sitecore/jss/blob/dev/packages/sitecore-jss-cli/src/scripts/manifest.ts](https://github.com/Sitecore/jss/blob/dev/packages/sitecore-jss-cli/src/scripts/manifest.ts) We simply copy the file to the scripts folder of our app, where we start to modify it. 
 
-One reason why we have to modify the JSS CLI scripts is because they attempt to resolve the package JSON. The package.json is expected to be in the same directory in which context we run the command: `resolve('./package.json', { basedir: process.cwd() }, (error, packageJson) => {` In our case we like to run the scripts in a context where we don't have a package.json file. Instead we created a 'sitecore.config.json' file where the JSS settings are now placed separately. In our modified script we are reading this file instead.
+One of the reasons for us to modify the manifest script is that it attempts to resolve the *package.json* in the context directory of process execution: `resolve('./package.json', { basedir: process.cwd() }, (error, packageJson) => {})` In our case we like to run the scripts in a context where we don't have a package.json file. Instead we created a 'sitecore.config.json' to store our settings. In the modified script we are reading this file instead.
 
 Here is what we ended up with:
 
